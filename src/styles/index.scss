@@ -11,10 +11,8 @@ $--md: 992px !default;
 $--lg: 1200px !default;
 $--xl: 1920px !default;
 
-// 先导入Element UI的CSS，避免字体路径问题
 @import '~element-ui/lib/theme-chalk/index.css';
 
-// 再导入自定义样式
 // 全局样式
 * {
   margin: 0;

@@ -7,7 +7,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    clean: true
+    clean: true,
+    assetModuleFilename: 'assets/[hash][ext][query]' // 添加这一行来处理资源文件
   },
   module: {
     rules: [
@@ -30,26 +31,23 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash:7].[ext]',
-          outputPath: 'images'
+        type: 'asset/resource',
+        generator: {
+          filename: 'img/[name].[hash:7][ext]'
         }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash:7].[ext]',
-          outputPath: 'media'
+        type: 'asset/resource',
+        generator: {
+          filename: 'media/[name].[hash:7][ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash:7].[ext]',
-          outputPath: 'fonts'
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[hash:7][ext]'
         }
       }
     ]
@@ -70,8 +68,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     port: 8080,
-    open: true,
-    host: '0.0.0.0' // 允许外部设备访问
+    open: true
   },
   optimization: {
     splitChunks: {
